@@ -11,7 +11,7 @@ A react component which improves UX by enabling liquid swipe.
 ```
 npm i react-liquidswipe
 ```
-## Usage/Examples
+## Usage
 
 ```javascript
 import { Liquidswipe } from "react-liquidswipe";
@@ -23,6 +23,10 @@ function App() {
 }
 ```
  
+## Examples
+
+- [serial-number](https://github.com/iamanishroy/react-liquidswipe-examples/tree/main/serial-number)
+
 ## Contributors
 
 - [@iamanishroy](https://www.github.com/iamanishroy/)

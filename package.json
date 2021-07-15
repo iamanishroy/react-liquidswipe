@@ -1,6 +1,6 @@
 {
   "name": "react-liquidswipe",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "A react component which improves UX by enabling liquid swipe.",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
