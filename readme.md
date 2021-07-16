@@ -20,7 +20,15 @@ import { Liquidswipe } from "react-liquidswipe";
 function App() {
   let components = []; // array of JSX
 
-  return <Liquidswipe components={components} />;
+  return <Liquidswipe 
+          components={components}
+          style={{
+            height: "80vh",
+            width: "80vw",
+            margin: "10vh auto",
+            borderRadius: "20px",
+          }}
+        />
 }
 ```
 
