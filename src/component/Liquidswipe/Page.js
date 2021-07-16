@@ -3,18 +3,18 @@ import { useSpring, animated, interpolate } from "react-spring";
 import { useDrag } from "react-use-gesture";
 import "./styles/style.css";
 
-const height = window.innerHeight;
-const width = window.innerWidth;
-let w = width;
+// const height = window.innerHeight;
+// const width = window.innerWidth;
+// let w = width;
 
-const getPath = (y, x, width) => {
+const getPath = (y, x, w, h) => {
   const anchorDistance = 200 + x * 0.5;
   const curviness = anchorDistance - 80;
-  return `M${width}, ${height} H0V0h${width}v 
-        ${
-          y - anchorDistance
-        } c0, ${curviness} , ${x} , ${curviness} , ${x} , ${anchorDistance} 
-        S${width}, ${y} ,${width}, ${y + anchorDistance * 2} V ${height} z`;
+  const path = `M${w}, ${h} H0V0h${w}v ${
+    y - anchorDistance
+  } c0, ${curviness} , ${x} , ${curviness} , ${x} , ${anchorDistance} 
+  S${w}, ${y} ,${w}, ${y + anchorDistance * 2} V ${h} z`;
+  return path;
 };
 
 export const Page = ({
@@ -25,7 +25,11 @@ export const Page = ({
   index,
   setActive,
   gone = false,
+  parentElement,
 }) => {
+  const [height] = useState(parentElement.current.offsetHeight);
+  const [width] = useState(parentElement.current.offsetWidth);
+
   const [isGone, setGone] = useState(gone);
   const [isPrevMove, setPrevMove] = useState(false);
   const [isNextMove, setNextMove] = useState(false);
@@ -39,7 +43,7 @@ export const Page = ({
   }));
 
   const [posR, setPosR] = useSpring(() => ({
-    posX: w + 50,
+    posX: width + 50,
     posY: height * 0.72 - 20,
     config: {
       mass: 3,
@@ -47,25 +51,29 @@ export const Page = ({
   }));
 
   const [{ prevD }, setDPrevValue] = useSpring(() => ({
-    prevD: gone ? getPath(0, 0, w) : getPath(height * 0.72, 0, 0),
+    prevD: gone
+      ? getPath(0, 0, width, heigth)
+      : getPath(height * 0.72, 0, 0, height),
     config: {
       mass: 3,
     },
     onRest: () => {
       if (isGone) {
-        setDPrevValue(getPath(0, 0, w));
+        setDPrevValue(getPath(0, 0, width, height));
       }
     },
   }));
 
   const [{ nextD }, setDNextValue] = useSpring(() => ({
-    nextD: gone ? getPath(0, 0, w) : getPath(height * 0.72, 0, 0),
+    nextD: gone
+      ? getPath(0, 0, width, height)
+      : getPath(height * 0.72, 0, 0, height),
     config: {
       mass: 3,
     },
     onRest: () => {
       if (isGone) {
-        setDNextValue(getPath(0, 0, w));
+        setDNextValue(getPath(0, 0, width, height));
       }
     },
   }));
@@ -73,17 +81,17 @@ export const Page = ({
   useEffect(() => {
     if (!gone) {
       setDPrevValue({
-        prevD: getPath(height * 0.72, 48, 5),
+        prevD: getPath(height * 0.72, 48, 5, height),
       });
       setDNextValue({
-        nextD: getPath(height * 0.72, 48, 5),
+        nextD: getPath(height * 0.72, 48, 5, height),
       });
       setTimeout(() => {
         setPosL({
           posX: 7,
         });
         setPosR({
-          posX: w - 47,
+          posX: width - 47,
         });
       }, 100);
     }
@@ -92,11 +100,9 @@ export const Page = ({
   const bind = useDrag(
     ({ down, movement: [mx], xy: [, my], vxvy: [vx] }) => {
       if (!isGone) {
-        console.log(mx);
-
         if (down && isPrevMove) {
           setDPrevValue({
-            prevD: getPath(my, mx + 60, 10),
+            prevD: getPath(my, mx + 60, 10, height),
           });
           setPosL({
             posX: mx + 20,
@@ -104,50 +110,50 @@ export const Page = ({
           });
           if (mx > width / 2 || vx > 3) {
             setDPrevValue({
-              prevD: getPath(my, -50, w),
+              prevD: getPath(my, -50, width, height),
             });
             setGone(true);
             setTimeout(() => {
               setDPrevValue({
-                prevD: getPath(my, 0, w),
+                prevD: getPath(my, 0, width, height),
               });
               setActive(index - 1);
             }, 240);
           }
         } else if (down && isNextMove) {
-          mx = Math.abs(mx);
+          mx = mx * -1;
           setDNextValue({
-            nextD: getPath(my, mx + 60, 10),
+            nextD: getPath(my, mx + 60, 10, height),
           });
           setPosR({
-            posX: w - (mx + 60),
+            posX: width - (mx + 60),
             posY: my - 20,
           });
           if (Math.abs(mx) > width / 2 || vx < -3) {
             setDNextValue({
-              nextD: getPath(my, -50, w),
+              nextD: getPath(my, -50, width, height),
             });
             setGone(true);
             setTimeout(() => {
               setDNextValue({
-                nextD: getPath(my, 0, w),
+                nextD: getPath(my, 0, width, height),
               });
               setActive(index + 1);
             }, 240);
           }
         } else {
           setDPrevValue({
-            prevD: getPath(height * 0.72, 48, 5),
+            prevD: getPath(height * 0.72, 48, 5, height),
           });
           setPosL({
             posX: 7,
             posY: height * 0.72 - 20,
           });
           setDNextValue({
-            nextD: getPath(height * 0.72, 48, 5),
+            nextD: getPath(height * 0.72, 48, 5, height),
           });
           setPosR({
-            posX: w - 47,
+            posX: width - 47,
             posY: height * 0.72 - 20,
           });
         }
@@ -162,7 +168,7 @@ export const Page = ({
       <svg
         className="lqsw_svg"
         style={{
-          zIndex: 204,
+          zIndex: 20004,
         }}
         version="1.1"
         id="blob"
@@ -175,7 +181,7 @@ export const Page = ({
       <svg
         className="lqsw_svg"
         style={{
-          zIndex: 204,
+          zIndex: 20004,
         }}
         version="1.1"
         id="blob"
@@ -183,7 +189,7 @@ export const Page = ({
       >
         <clipPath id={`clippingRight${index}`}>
           <animated.path
-            transform={`translate(${w}, 0) scale(-1, 1)`}
+            transform={`translate(${width}, 0) scale(-1, 1)`}
             id={`blob-path${index}`}
             d={nextD}
           />
@@ -197,7 +203,7 @@ export const Page = ({
             style={{
               clipPath: `url(#clipping${index})`,
               WebkitClipPath: `url(#clipping${index})`,
-              zIndex: 201,
+              zIndex: 20001,
             }}
           >
             {prev}
@@ -223,7 +229,7 @@ export const Page = ({
                 range: [0, 100],
                 output: [1, 0],
               }),
-              zIndex: 205,
+              zIndex: 20005,
               transform: interpolate(
                 [
                   posL.posX.interpolate((x) => `translateX(${x}px)`),
@@ -251,7 +257,7 @@ export const Page = ({
       <div
         className="lqsw_page"
         style={{
-          zIndex: 200,
+          zIndex: 20000,
         }}
       >
         <>{current}</>
@@ -263,7 +269,7 @@ export const Page = ({
             style={{
               clipPath: `url(#clippingRight${index})`,
               WebkitClipPath: `url(#clippingRight${index})`,
-              zIndex: 202,
+              zIndex: 20002,
             }}
           >
             {next}
@@ -286,10 +292,10 @@ export const Page = ({
             }}
             style={{
               opacity: posR.posX.interpolate({
-                range: [w - 40, w - 140],
+                range: [width - 40, width - 140],
                 output: [1, 0],
               }),
-              zIndex: 205,
+              zIndex: 20005,
               transform: interpolate(
                 [
                   posR.posX.interpolate((x) => `translateX(${x}px)`),

@@ -1,16 +1,17 @@
-
 # react-liquidswipe
 
-A react component which improves UX by enabling liquid swipe.
+A react component build on top of [react-spring](https://www.npmjs.com/package/react-spring) and [react-use-gesture](https://www.npmjs.com/package/react-use-gesture) that improves UX by enabling liquid swipe.
 
 ## Demo
 
 ![Demo](https://ik.imagekit.io/anishroy/demo/demo_tHVE6jn3f.gif)
-  
+
 ## Install
+
 ```
 npm i react-liquidswipe
 ```
+
 ## Usage
 
 ```javascript
@@ -22,7 +23,7 @@ function App() {
   return <Liquidswipe components={components} />;
 }
 ```
- 
+
 ## Examples
 
 - [serial-number](https://github.com/iamanishroy/react-liquidswipe-examples/tree/main/serial-number)
@@ -32,6 +33,5 @@ function App() {
 - [@iamanishroy](https://www.github.com/iamanishroy/)
 
 ## License
-[MIT](https://choosealicense.com/licenses/mit/)
 
-  
+[MIT](https://choosealicense.com/licenses/mit/)

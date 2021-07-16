@@ -1,57 +1,33 @@
-import React, { useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Page } from "./Page";
 import "./styles/style.css";
 
-export const Liquidswipe = ({ components }) => {
+export const Liquidswipe = ({ components, style }) => {
   const sizeOfSwipe = components.length;
   const [isActive, setActive] = useState(0);
   const [elm, setElm] = useState();
+  const parentElement = useRef(null);
 
   useEffect(() => {
-    const key = isActive;
-    if (isActive === 0) {
-      // first swipe
-      setElm(
-        <Page
-          key={key}
-          index={key}
-          prev={null}
-          current={components[key]}
-          next={components[key + 1]}
-          setActive={setActive}
-        />
-      );
-    } else if (isActive === sizeOfSwipe - 1) {
-      // last swipe
-      setElm(
-        <Page
-          key={key}
-          index={key}
-          prev={components[key - 1]}
-          current={components[key]}
-          next={null}
-          setActive={setActive}
-        />
-      );
-    } else {
-      // middle swipes
-      setElm(
-        <Page
-          key={key}
-          index={key}
-          prev={components[key - 1]}
-          current={components[key]}
-          next={components[key + 1]}
-          setActive={setActive}
-        />
-      );
-    }
-  }, [isActive, sizeOfSwipe, components]);
+    setElm(
+      <Page
+        key={isActive}
+        index={isActive}
+        prev={components[isActive - 1] || null}
+        current={components[isActive]}
+        next={components[isActive + 1] || null}
+        setActive={setActive}
+        parentElement={parentElement}
+      />
+    );
+  }, [isActive, components]);
 
   if (sizeOfSwipe !== 0) {
     return (
       <>
-        <div className="lqsw_container">{elm}</div>
+        <div ref={parentElement} className="lqsw_container" style={style}>
+          {elm}
+        </div>
       </>
     );
   } else {

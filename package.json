@@ -1,7 +1,7 @@
 {
   "name": "react-liquidswipe",
   "version": "1.0.3",
-  "description": "A react component which improves UX by enabling liquid swipe.",
+  "description": "A react component build on top of react-spring and react-use-gesture that improves UX by enabling liquid swipe.",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "repository": "iamanishroy/react-liquidswipe",
