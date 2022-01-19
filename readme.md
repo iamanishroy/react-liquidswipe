@@ -15,7 +15,7 @@ npm i react-liquidswipe
 ## Usage
 
 ```javascript
-import { Liquidswipe } from 'react-liquidswipe';
+import LiquidSwipe from "react-liquidswipe";
 
 function App() {
   let components = []; // array of JSX
