@@ -6,6 +6,8 @@ A react component build on top of [react-spring](https://www.npmjs.com/package/r
 
 ![Demo](https://ik.imagekit.io/anishroy/demo/demo_tHVE6jn3f.gif)
 
+[Live](https://lqsw.netlify.app/)
+
 ## Install
 
 ```
@@ -15,7 +17,7 @@ npm i react-liquidswipe
 ## Usage
 
 ```javascript
-import LiquidSwipe from "react-liquidswipe";
+import LiquidSwipe from 'react-liquidswipe';
 
 function App() {
   let components = []; // array of JSX
