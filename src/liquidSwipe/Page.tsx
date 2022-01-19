@@ -1,23 +1,34 @@
-import React, { useState, useEffect } from "react";
-import { useSpring, animated, interpolate } from "react-spring";
+import React, { useState, useEffect, FC } from "react";
+import { useSpring, animated, interpolate } from "@react-spring/web";
 import { useDrag } from "react-use-gesture";
-import "./styles/style.css";
+import { LQSW_BUTTON, LQSW_PAGE, LQSW_SVG } from "./Styled";
+
 
 // const height = window.innerHeight;
 // const width = window.innerWidth;
 // let w = width;
 
-const getPath = (y, x, w, h) => {
+const getPath = (y: number, x: number, w: number, h: number) => {
   const anchorDistance = 200 + x * 0.5;
   const curviness = anchorDistance - 80;
-  const path = `M${w}, ${h} H0V0h${w}v ${
-    y - anchorDistance
-  } c0, ${curviness} , ${x} , ${curviness} , ${x} , ${anchorDistance} 
+  const path = `M${w}, ${h} H0V0h${w}v ${y - anchorDistance
+    } c0, ${curviness} , ${x} , ${curviness} , ${x} , ${anchorDistance} 
   S${w}, ${y} ,${w}, ${y + anchorDistance * 2} V ${h} z`;
   return path;
 };
 
-export const Page = ({
+export interface PageProps {
+  parentElement: any;
+  prev: FC | null;
+  current: FC;
+  next: FC | null;
+  index: number;
+  setActive: Function;
+  gone?: boolean;
+  theme?: string;
+}
+
+export default function Page({
   prev,
   current,
   next,
@@ -26,9 +37,9 @@ export const Page = ({
   setActive,
   gone = false,
   parentElement,
-}) => {
-  const [height] = useState(parentElement.current.offsetHeight);
-  const [width] = useState(parentElement.current.offsetWidth);
+}: PageProps) {
+  const height: number = useState(parentElement.current.offsetHeight)[0];
+  const width: number = useState(parentElement.current.offsetWidth)[0];
 
   const [isGone, setGone] = useState(gone);
   const [isPrevMove, setPrevMove] = useState(false);
@@ -50,9 +61,9 @@ export const Page = ({
     },
   }));
 
-  const [{ prevD }, setDPrevValue] = useSpring(() => ({
+  const [{ prevD }, setDPrevValue]: any = useSpring(() => ({
     prevD: gone
-      ? getPath(0, 0, width, heigth)
+      ? getPath(0, 0, width, height)
       : getPath(height * 0.72, 0, 0, height),
     config: {
       mass: 3,
@@ -64,7 +75,7 @@ export const Page = ({
     },
   }));
 
-  const [{ nextD }, setDNextValue] = useSpring(() => ({
+  const [{ nextD }, setDNextValue]: any[] = useSpring(() => ({
     nextD: gone
       ? getPath(0, 0, width, height)
       : getPath(height * 0.72, 0, 0, height),
@@ -165,8 +176,7 @@ export const Page = ({
   );
   return (
     <div id={`pageContainer${index}`} {...bind()}>
-      <svg
-        className="lqsw_svg"
+      <LQSW_SVG
         style={{
           zIndex: 20004,
         }}
@@ -177,9 +187,8 @@ export const Page = ({
         <clipPath id={`clipping${index}`}>
           <animated.path id={`blob-path${index}`} d={prevD} />
         </clipPath>
-      </svg>
-      <svg
-        className="lqsw_svg"
+      </LQSW_SVG>
+      <LQSW_SVG
         style={{
           zIndex: 20004,
         }}
@@ -194,12 +203,11 @@ export const Page = ({
             d={nextD}
           />
         </clipPath>
-      </svg>
+      </LQSW_SVG>
 
       {prev && (
         <>
-          <div
-            className="lqsw_page"
+          <LQSW_PAGE
             style={{
               clipPath: `url(#clipping${index})`,
               WebkitClipPath: `url(#clipping${index})`,
@@ -207,9 +215,8 @@ export const Page = ({
             }}
           >
             {prev}
-          </div>
+          </LQSW_PAGE>
           <animated.button
-            className="lqsw_button"
             id={`button1i${index}`}
             color={theme}
             onMouseDown={() => {
@@ -224,7 +231,9 @@ export const Page = ({
             onTouchEnd={() => {
               setPrevMove(false);
             }}
+            // @ts-ignore
             style={{
+              ...LQSW_BUTTON,
               opacity: posL.posX.interpolate({
                 range: [0, 100],
                 output: [1, 0],
@@ -254,18 +263,16 @@ export const Page = ({
           </animated.button>
         </>
       )}
-      <div
-        className="lqsw_page"
+      <LQSW_PAGE
         style={{
           zIndex: 20000,
         }}
       >
         <>{current}</>
-      </div>
+      </LQSW_PAGE>
       {next && (
         <>
-          <div
-            className="lqsw_page"
+          <LQSW_PAGE
             style={{
               clipPath: `url(#clippingRight${index})`,
               WebkitClipPath: `url(#clippingRight${index})`,
@@ -273,9 +280,8 @@ export const Page = ({
             }}
           >
             {next}
-          </div>
+          </LQSW_PAGE>
           <animated.button
-            className="lqsw_button"
             id={`button2i${index}`}
             color={theme}
             onMouseDown={() => {
@@ -290,7 +296,9 @@ export const Page = ({
             onTouchEnd={() => {
               setNextMove(false);
             }}
+            // @ts-ignore
             style={{
+              ...LQSW_BUTTON,
               opacity: posR.posX.interpolate({
                 range: [width - 40, width - 140],
                 output: [1, 0],

@@ -15,20 +15,22 @@ npm i react-liquidswipe
 ## Usage
 
 ```javascript
-import { Liquidswipe } from "react-liquidswipe";
+import { Liquidswipe } from 'react-liquidswipe';
 
 function App() {
   let components = []; // array of JSX
 
-  return <Liquidswipe 
-          components={components}
-          style={{
-            height: "80vh",
-            width: "80vw",
-            margin: "10vh auto",
-            borderRadius: "20px",
-          }}
-        />
+  return (
+    <Liquidswipe
+      components={components}
+      style={{
+        height: '80vh',
+        width: '80vw',
+        margin: '10vh auto',
+        borderRadius: '20px',
+      }}
+    />
+  );
 }
 ```
 
@@ -40,6 +42,14 @@ function App() {
 
 - [@iamanishroy](https://www.github.com/iamanishroy/)
 
+## Support
+
+Please [open an issue](https://github.com/iamanishroy/gulp-wasm/issues/new) for support.
+
+## Contributing
+
+Please contribute using [Github Flow](https://guides.github.com/introduction/flow/). Create a branch, add commits, and [open a pull request](https://github.com/iamanishroy/gulp-wasm/compare/).
+
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[MIT License](http://en.wikipedia.org/wiki/MIT_License)

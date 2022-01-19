@@ -1,45 +1,83 @@
 {
-  "name": "react-liquidswipe",
-  "version": "1.2.0",
-  "description": "A react component build on top of react-spring and react-use-gesture that improves UX by enabling liquid swipe.",
+  "version": "1.3.0",
+  "license": "MIT",
   "main": "dist/index.js",
-  "module": "dist/index.es.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test --passWithNoTests",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "peerDependencies": {
+    "react": ">=16"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "name": "react-liquidswipe",
+  "author": "Anish Roy",
+  "module": "dist/react-liquidswipe.esm.js",
   "repository": "iamanishroy/react-liquidswipe",
   "bugs": {
     "url": "https://github.com/iamanishroy/react-liquidswipe/issues"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
-    "build-lib": "rollup -c"
-  },
-  "author": "Anish Roy",
-  "license": "MIT",
+  "size-limit": [
+    {
+      "path": "dist/react-liquidswipe.cjs.production.min.js",
+      "limit": "90 KB"
+    },
+    {
+      "path": "dist/react-liquidswipe.esm.js",
+      "limit": "90 KB"
+    }
+  ],
   "devDependencies": {
-    "@babel/core": "^7.14.6",
-    "@babel/preset-react": "^7.14.5",
-    "@rollup/plugin-node-resolve": "^13.0.0",
-    "@storybook/addon-actions": "^6.3.4",
-    "@storybook/addon-essentials": "^6.3.4",
-    "@storybook/addon-links": "^6.3.4",
-    "@storybook/react": "^6.3.4",
-    "babel-loader": "^8.2.2",
+    "@babel/core": "^7.16.7",
+    "@size-limit/preset-small-lib": "^7.0.5",
+    "@storybook/addon-essentials": "^6.4.13",
+    "@storybook/addon-info": "^5.3.21",
+    "@storybook/addon-links": "^6.4.13",
+    "@storybook/addons": "^6.4.13",
+    "@storybook/react": "^6.4.13",
+    "@types/react": "^17.0.38",
+    "@types/react-dom": "^17.0.11",
+    "@types/styled-components": "^5.1.20",
+    "babel-loader": "^8.2.3",
+    "husky": "^7.0.4",
     "randomcolor": "^0.6.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "rollup": "^2.53.2",
-    "rollup-plugin-babel": "^4.4.0",
-    "rollup-plugin-peer-deps-external": "^2.2.4",
-    "rollup-plugin-postcss": "^4.0.0",
-    "rollup-plugin-terser": "^7.0.2"
-  },
-  "peerDependencies": {
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-is": "^17.0.2",
+    "sass": "^1.49.0",
+    "size-limit": "^7.0.5",
+    "styled-components": "^5.3.3",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.3.1",
+    "typescript": "^4.5.4"
   },
   "dependencies": {
-    "react-spring": "^9.2.4",
+    "@react-spring/web": "^9.4.2",
     "react-use-gesture": "^9.1.3"
   },
   "keywords": [

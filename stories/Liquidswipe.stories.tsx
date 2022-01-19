@@ -1,9 +1,9 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-import { Liquidswipe } from "../component/Liquidswipe";
+import LiquidSwipe from "../src";
 import randomColor from "randomcolor";
 
-const stories = storiesOf("Liquidswipe Test", module);
+const stories = storiesOf("LiquidSwipe Test", module);
 
 stories.add("Basic", () => {
   const ids = ["1", "2", "3", "4", "5", "6"];
@@ -18,7 +18,7 @@ stories.add("Basic", () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          color: "#333333",
+          // color: "#333333",
         }}
       >
         <h1>{ids[i]}</h1>
@@ -28,7 +28,7 @@ stories.add("Basic", () => {
 
   return (
     <>
-      <Liquidswipe components={componentsToRender} />
+      <LiquidSwipe components={componentsToRender} />
     </>
   );
 });
@@ -47,7 +47,7 @@ stories.add("With Style", () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          color: "#333333",
+          // color: "#333333",
         }}
       >
         <h1>{ids[i]}</h1>
@@ -57,7 +57,7 @@ stories.add("With Style", () => {
 
   return (
     <>
-      <Liquidswipe
+      <LiquidSwipe
         components={componentsToRender}
         style={{
           height: "80vh",
