@@ -46,11 +46,11 @@ function App() {
 
 ## Support
 
-Please [open an issue](https://github.com/iamanishroy/gulp-wasm/issues/new) for support.
+Please [open an issue](https://github.com/iamanishroy/react-liquidswipe/issues/new) for support.
 
 ## Contributing
 
-Please contribute using [Github Flow](https://guides.github.com/introduction/flow/). Create a branch, add commits, and [open a pull request](https://github.com/iamanishroy/gulp-wasm/compare/).
+Please contribute using [Github Flow](https://guides.github.com/introduction/flow/). Create a branch, add commits, and [open a pull request](https://github.com/iamanishroy/react-liquidswipe/compare/).
 
 ## License
 
